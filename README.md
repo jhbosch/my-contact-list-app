@@ -24,7 +24,7 @@ yarn
 
 ## Start the REST API
 
-[Documentation](https://github.com/smakosh/not-todo-api)
+[Documentation ](https://github.com/jhbosch/my-contacts-api-rest)
 
 ## Start the dev server
 
