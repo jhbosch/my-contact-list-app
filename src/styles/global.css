@@ -1,0 +1,20 @@
+
+td {
+    text-align: center;
+}
+
+._label {
+    color: darkgrey;
+    margin-bottom: 0;
+}
+
+
+._error_input {
+    border-color: red;
+}
+
+._error { 
+    color: red;
+}
+
+
