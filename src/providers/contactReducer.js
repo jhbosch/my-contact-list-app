@@ -4,7 +4,7 @@ export default (contacts, action) => {
     case 'Add_NEW_CONTACT':
       return [...contacts, action.payload]
     case 'FETCH_CONTACTS':
-      return action.payload
+      return [...action.payload]
     default:
       return contacts
   }

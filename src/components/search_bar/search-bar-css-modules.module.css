@@ -15,6 +15,9 @@
 }
 
 .search_item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     text-align: center;
     border-radius: 20px;
     margin-right: 8px;
@@ -26,14 +29,23 @@
 
 .search_item_close {
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 12px;
     padding-right: 2px;
     padding-left: 2px;
     font-weight: bold;
     border-radius: 20px;
     cursor: pointer;
-    background-color: #c7c7c7;
+    background-color: #b7b7b7;
     margin-left: 8px;
+    height: 14px;
+    width: 14px;
+}
+
+.search_item_close a {
+    text-decoration: none;
 }
 
 .search_item_search {
@@ -44,8 +56,11 @@
     align-items: center;
 }
 
-.search {
-    
+.search_btn {
+    background-color: #9E9E9E;
+    border-color: #9e9e9e;
+    border-radius: 5px;
+    color: white;
 }
 
 

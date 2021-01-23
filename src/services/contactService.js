@@ -36,7 +36,7 @@ const contactUpdate = async (id,contact) => {
   try {
     const data = await axios.patch(`${process.env.API}/contact/${id}`,contact)
     if(data.status === 200){
-      return true;
+      return data.data;
     }
     
     return {error:data.error};

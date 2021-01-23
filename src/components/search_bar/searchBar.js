@@ -21,14 +21,19 @@ const SearchBar = () => {
         setFilter(value.trim());
     }
 
-    const clearItemFilter = (filter) => {
-        let pos = filters.indexOf(filter);
-        filters.splice(pos,1);
+    const clearItemFilter = (e,filter) => {
+        e.preventDefault();
+        filters.splice(filters.indexOf(filter),1);
         dispatchFilter({type: 'DEL_FILTER', payload: [...filters] });
     }
 
     const renderFilter = (filter, index) => (
-        <li key={index} className={styles.search_item}>{filter} <span onClick={() => clearItemFilter(filter)} className={styles.search_item_close}>x</span></li>
+        <li key={index} className={styles.search_item}>
+            {filter}
+            <span className={styles.search_item_close}>
+                <a href="/" onClick={(e) => clearItemFilter(e,filter)}>x</a>
+            </span>
+        </li>
     )
 
     return (
@@ -39,7 +44,7 @@ const SearchBar = () => {
             </ul>
             <div className={styles.search_item_search}>
                     <input value={filter} onChange={onChange} type="text" name="" />
-                    <input disabled={disabled} onClick={addFilters} type="button" value="SEARCH"/>
+                    <input className={styles.search_btn} disabled={disabled} onClick={addFilters} type="button" value="SEARCH"/>
             </div>
         </div>
 

@@ -10,7 +10,7 @@ const ContactList = () => {
     
 
     useEffect(() => {
-
+        
         const fetch = async () => {
             const data = await fetchContacts(filters);
     
@@ -20,10 +20,10 @@ const ContactList = () => {
                 alert(data.error);
             }
         }
-
         fetch();
 
-      }, [filters,dispatch])
+      }, [filters, dispatch ]);
+
 
 
     return (

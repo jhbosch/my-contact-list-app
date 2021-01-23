@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
-import { fetchContacts, contactDelete, contactUpdate } from "../../services/contactService";
+import { contactDelete, contactUpdate } from "../../services/contactService";
 import Context from "../common/Context";
-import { Form, Field } from 'react-final-form'
+import { Form, Field } from 'react-final-form';
 import styles from "./contact-css-modules.module.css";
 
 
@@ -11,9 +11,9 @@ const Contact = (props) => {
 
 
     const [isSubmitting, setSubmitting] = useState (false);
-    const [isEditting, setEditting] = useState (false);
+    const [isEditting, setEditting] = useState(false);
 
-    const {dispatch, filters} = useContext(Context);
+    const {dispatch, contacts} = useContext(Context);
 
     const onSubmit = async (values) => {
        
@@ -21,14 +21,26 @@ const Contact = (props) => {
         setEditting(!isEditting);
         const data = await contactUpdate(props.id,values);
         if(data && data.error === undefined){
-            const data = await fetchContacts(filters);
-            await dispatch({ type: 'FETCH_CONTACTS', payload: data })
+            contacts.splice(contacts.findIndex(item => item._id === props.id), 1,data);
+            await dispatch({ type: 'FETCH_CONTACTS', payload: contacts });
         }else{
-            alert(data.error)
+            alert(data.error);
         }
         setSubmitting(false);
-        
     }
+  
+    
+    const deleteContact = async () => {
+        setSubmitting(true);
+        const data = await contactDelete(props.id);
+        if(data && data.error === undefined){
+            contacts.splice(contacts.findIndex(item => item._id === props.id), 1);
+            await dispatch({ type: 'FETCH_CONTACTS', payload: contacts });
+        }else{
+            alert(data.error);
+        }
+    }   
+
 
     const validate = values => {
   
@@ -54,19 +66,7 @@ const Contact = (props) => {
     }
     
 
-    const deleteContact = async (e) => {
-        e.preventDefault();
-        setSubmitting(true);
-        const data = await contactDelete(props.id);
-        
-        if(data && data.error === undefined){
-            const data = await fetchContacts(filters);
-            await dispatch({ type: 'FETCH_CONTACTS', payload: data })
-        }else{
-            alert(data.error)
-        }
-        setSubmitting(false);
-    } 
+    
 
     const editContact = (e) => {
         e.preventDefault();
@@ -149,9 +149,9 @@ const Contact = (props) => {
                     </div>
                     <div className={styles.subcontent}>
                         <div className={styles.btnAction}>
-                            {!isEditting ? <a href="#" disabled={isSubmitting} onClick={editContact}>Editar</a>
+                            {!isEditting ? <button className={styles.saveLink} type="button" disabled={isSubmitting} onClick={editContact}>Editar</button>
                              : <button className={styles.saveLink} type="submit" onSubmit={onSubmit}>Save</button>}
-                            <a href="#" disabled={isSubmitting} onClick={deleteContact}>Remove</a>
+                            <button type="button" className={styles.saveLink} disabled={isSubmitting} onClick={deleteContact}>Remove</button>
                             
                             
                         </div>
